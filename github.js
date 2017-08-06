@@ -11,12 +11,6 @@ axios.get(pullUrl).then((response) => {
          if (pull.state === "open"){
             pulls.push(pull.number);
         }
-    }).catch((e) => {
-        if (e.code === 'ENOTFOUND') {
-             console.log('Unable to connect to API servers.');
-        } else {
-           console.log(e.message);
-        }
     });
 
     console.log(pulls.length + " open pull requests.");
@@ -26,7 +20,7 @@ axios.get(pullUrl).then((response) => {
 
         axios.get(individualPull).then((response) => {
             if (response.data.comments === 0){
-                console.log(`Pull request ${pullNumber} has no comments.`);x
+                console.log(`Pull request ${pullNumber} has no comments. Needs feedback.`);
             }
         }).catch((e) => {
             if (e.code === 'ENOTFOUND') {
@@ -36,4 +30,10 @@ axios.get(pullUrl).then((response) => {
             }
         });
     });
+}).catch((e) => {
+    if (e.code === 'ENOTFOUND') {
+        console.log('Unable to connect to API servers.');
+    } else {
+        console.log(e.message);
+    }
 });
