@@ -12,19 +12,24 @@ axios.get(pullUrl).then((response) => {
             pulls.push(pull.number);
         }
     });
-
+    console.log("==========================================");
     console.log(pulls.length + " open pull requests.");
+    console.log("==========================================");
 
     pulls.forEach((pullNumber) => {
         var individualPull = `https://api.github.com/repos/skillcrush/skillcrush-104/pulls/${pullNumber}`;
 
         axios.get(individualPull).then((response) => {
-             var mergeable = response.data.mergeable ? "is mergeable" : "is not mergeable."
+             var mergeable = response.data.mergeable ? "are mergeable" : "are not mergeable"
             if (response.data.comments === 0){
+                console.log("***********************************************************");
                 console.log(`Pull request ${pullNumber} has no comments. Needs feedback.`);
+                console.log("***********************************************************");
             } else {
                 console.log(`Student repo: ${response.data.head.repo.full_name}`);
-                console.log(`${response.data.changed_files} number of files changed and ${mergeable}.`);
+                console.log(`${response.data.changed_files} number of files changed. Changes ${mergeable}.`);
+                console.log(`Comments: ${response.data.comments}`);
+                console.log("---");
             }
         }).catch((e) => {
             if (e.code === 'ENOTFOUND') {
