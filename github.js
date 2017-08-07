@@ -20,13 +20,20 @@ axios.get(pullUrl).then((response) => {
         var individualPull = `https://api.github.com/repos/skillcrush/skillcrush-104/pulls/${pullNumber}`;
 
         axios.get(individualPull).then((response) => {
-             var mergeable = response.data.mergeable ? "are mergeable" : "are not mergeable"
+             var mergeable = response.data.mergeable ? "are mergeable" : "are not mergeable";
+             var branchName = response.data.head.ref;
+             var compareBase = "https://github.com/skillcrush/skillcrush-104/compare/master...";
+             var branchLabel = response.data.head.label;
             if (response.data.comments === 0){
                 console.log("***********************************************************");
                 console.log(`Pull request ${pullNumber} has no comments. Needs feedback.`);
+                console.log(`Branch name ${branchName}.`);
+                console.log(`Compare changes here ${compareBase}${branchLabel}`)
                 console.log("***********************************************************");
             } else {
                 console.log(`Student repo: ${response.data.head.repo.full_name}`);
+                console.log(`Branch name ${branchName}.`);
+                console.log(`Compare changes here ${compareBase}${branchLabel}`)
                 console.log(`${response.data.changed_files} number of files changed. Changes ${mergeable}.`);
                 console.log(`Comments: ${response.data.comments}`);
                 console.log("---");
