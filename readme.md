@@ -7,7 +7,7 @@
 - Need npm
 
 ### Usage:
-- Run ```npm install```
+- Run ```npm install``` or ```yarn```
 - Run ```node github.js```
 
 
