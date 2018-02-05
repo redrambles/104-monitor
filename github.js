@@ -1,11 +1,11 @@
 const axios = require('axios');
 
-var pullUrl = "https://api.github.com/repos/skillcrush/skillcrush-104/pulls";
+const pullUrl = "https://api.github.com/repos/skillcrush/skillcrush-104/pulls";
 
 axios.get(pullUrl).then((response) => {
 
-    var pulls = [];  
-    var data = response.data; 
+    let pulls = [];  
+    const data = response.data; 
 
     data.forEach((pull) => {
          if (pull.state === "open"){
@@ -17,14 +17,14 @@ axios.get(pullUrl).then((response) => {
     console.log("==========================================");
 
     pulls.forEach((pullNumber) => {
-        var individualPull = `https://api.github.com/repos/skillcrush/skillcrush-104/pulls/${pullNumber}`;
+        const individualPull = `https://api.github.com/repos/skillcrush/skillcrush-104/pulls/${pullNumber}`;
 
         axios.get(individualPull).then((response) => {
-             var mergeable = response.data.mergeable ? "are mergeable" : "are not mergeable";
-             var branchName = response.data.head.ref;
-             var compareBase = "https://github.com/skillcrush/skillcrush-104/compare/master...";
-             var branchLabel = response.data.head.label;
-             let numFilesChanged = response.data.changed_files;
+             const mergeable = response.data.mergeable ? "are mergeable" : "are not mergeable";
+             const branchName = response.data.head.ref;
+             const compareBase = "https://github.com/skillcrush/skillcrush-104/compare/master...";
+             const branchLabel = response.data.head.label;
+             const numFilesChanged = response.data.changed_files;
             if (response.data.comments === 0){
                 console.log("***********************************************************");
                 console.log(`Pull request ${pullNumber} has no comments. Needs feedback.`);
