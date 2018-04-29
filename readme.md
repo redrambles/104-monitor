@@ -7,7 +7,6 @@
 - Need npm
 
 ### Usage:
-- Run ```npm install``` or ```yarn```
-- Run ```node github.js```
+- Run setup with `./setup.sh` or `sh setup.sh`
 
 
